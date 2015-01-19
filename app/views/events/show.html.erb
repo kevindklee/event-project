@@ -1,0 +1,15 @@
+<%= render 'layouts/header'%>
+
+<h2><%= @event.title %></h2>
+<%= @event.description %><br>
+<%= @event.location %><br>
+<%= @event.startdatetime %><br>
+<%= @event.enddatetime %>
+
+<br><br>
+
+  <%= link_to "Edit", edit_event_path(@event) %>
+
+  <%= form_for @event, method: :delete do |f|%>
+    <%= f.submit 'Delete' %>
+  <% end %>

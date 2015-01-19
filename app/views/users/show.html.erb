@@ -1,0 +1,21 @@
+<%= render 'layouts/header'%>
+
+<%= render 'users/followinfo'%>
+
+
+<!-- User Info -->
+<%= @user.username %>
+<br>
+<%= @user.name %>
+<br>
+<%= @user.bio %>
+<br>
+<%= image_tag @user.avatar.url %>
+<br>
+<%= image_tag @user.avatar.url(:medium) %>
+<br>
+<%= image_tag @user.avatar.url(:thumb) %>
+<br>
+<%= image_tag @user.avatar.url(:thumb) %>
+
+<!-- Events Feeds -->

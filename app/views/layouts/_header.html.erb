@@ -1,0 +1,9 @@
+<ul>
+  <li><%= link_to "StreetTeamr", root_path %></li>
+  <li><%= link_to "New Event", new_event_path %></li>
+  <li><%= link_to current_user.username, current_user %></li>
+  <li><%= link_to "Edit Profile", edit_user_registration_path(current_user) %></li>
+  <li><%= link_to "Search", search_user_path(current_user) %></li>
+  <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+</ul>
+

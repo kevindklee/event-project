@@ -1,0 +1,126 @@
+<%= form_for @event do |f| %>
+
+    <%@event.errors.messages.values.each do |msg| %>
+        <%msg.each do  |m| %>
+          <li><%= m %></li>
+        <%end %>
+      <% end %>
+      <br>
+
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, :required => true %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description, :required => true %>
+  </div>
+  <div>
+    <%= f.label :'start time' %>
+    <%= f.datetime_select :startdatetime, :ampm => true, :minute_step => 15, :required => true %>
+  </div>
+  <div>
+    <%= f.label :'end time' %>
+    <%= f.datetime_select :enddatetime, :ampm => true, :minute_step => 15, :required => true %>
+  </div>
+  <div>
+    <%= f.label :location %>
+    <%= f.text_field :location, :id => "autocomplete", :onfocus => "geolocate()", :autocomplete => "on", :style => "width:500px", :required => true %>
+  </div>
+  <%= f.submit %>
+  
+<% end %>
+
+
+
+<!-- Google Maps Autocomplete -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <script>
+// This example displays an address form, using the autocomplete feature
+// of the Google Places API to help users fill in the information.
+
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+(function initialize() {
+  // Create the autocomplete object, restricting the search
+  // to geographical location types.
+  // console.log('initialized');
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+      { types: [] });
+
+  // console.log(autocomplete);
+  // When the user selects an address from the dropdown,
+  // populate the address fields in the form.
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    // fillInAddress();
+  });
+})();
+
+// // [START region_fillform]
+// function fillInAddress() {
+//   // Get the place details from the autocomplete object.
+//   var place = autocomplete.getPlace();
+
+//   for (var component in componentForm) {
+//     document.getElementById(component).value = '';
+//     document.getElementById(component).disabled = false;
+//   }
+
+//   // Get each component of the address from the place details
+//   // and fill the corresponding field on the form.
+//   for (var i = 0; i < place.address_components.length; i++) {
+//     var addressType = place.address_components[i].types[0];
+//     if (componentForm[addressType]) {
+//       var val = place.address_components[i][componentForm[addressType]];
+//       document.getElementById(addressType).value = val;
+//     }
+//   }
+// }
+// [END region_fillform]
+
+// [START region_geolocation]
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  // console.log('fired');
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = new google.maps.LatLng(
+          position.coords.latitude, position.coords.longitude);
+      autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,
+          geolocation));
+    });
+  }
+}
+// [END region_geolocation]
+
+    </script>
+
+
+<!-- Auto-Refresh Page -->
+<script type='text/javascript'>
+
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+})();
+
+</script>

@@ -1,0 +1,7 @@
+<%= render 'layouts/header'%>
+
+<h2>List of Other Users</h2>
+
+<% @user.each do |f| %>
+  <%= link_to f.username, f %><br>
+<% end %>

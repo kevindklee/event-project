@@ -1,0 +1,38 @@
+<div id="followinfo">
+
+
+  <!-- Follow Button-->
+<% if current_user == @user %>
+<% else %>
+  <% if current_user.following?(@user) == false %>
+    <%= link_to "Follow", follow_user_path(@user), :remote => true %>
+  <% else %>
+    <%= link_to "Unfollow", unfollow_user_path(@user), :remote => true %>
+  <% end %>
+<% end %>
+<br>
+
+<!-- Following/Follower Relationships-->
+
+<br>
+<%= @user.username %> is following <%= @user.follow_count %> other users.
+<br>
+
+<% @user.all_following.each do |following| %>
+  <%= link_to following.username, following %><br>
+<% end %>
+
+<br>
+
+<br>
+<%= @user.username %> has <%= @user.followers_count %> followers.
+<br>
+
+<% @user.followers.each do |follower| %>
+  <%= link_to follower.username, follower %><br>
+<% end %>
+
+<br>
+
+
+</div>
